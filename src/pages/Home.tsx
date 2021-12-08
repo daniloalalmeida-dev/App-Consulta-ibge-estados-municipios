@@ -4,7 +4,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import { api } from '../services/api';
 import { ItemEstado } from '../components/itemEstado';
 import { Municipio } from './Municipio';
-import searchBar from '../components/searchBar';
+import SearchItem from '../components/searchBar';
 
 export interface Estado {
   id: number;
@@ -32,6 +32,7 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      <SearchItem data={estados} setData={setEstados}/>
       <FlatList<Estado>
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}

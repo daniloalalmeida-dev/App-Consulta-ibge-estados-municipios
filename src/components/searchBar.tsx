@@ -1,28 +1,30 @@
-/* import React from "react";
-import { SearchBar } from 'react-native-elements';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, TextInput } from "react-native";
+import { color } from 'react-native-elements/dist/helpers';
+import { Estado } from '../pages/Home';
 
-interface Searcher {
-    search: string;
+export interface Props {
+  data: Estado[];
+  setData: React.Dispatch<React.SetStateAction<Estado[]>>;
 }
 
-export default class searchBar extends React.Component {
-  state = {
-    search: '',
-  };
+const SearchItem: React.FC<Props> = ({data, setData}) => {
+  const [search, setSearch] = useState('');
 
-  updateSearch = (search) => {
-    this.setState({ search });
-  };
-
-  render() {
-    const { search } = this.state;
-
-    return (
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={this.updateSearch}
-        value={search}
-      />
-    );
+  const searchFilterFunction = (text: string) => {
+    const newData = data.filter((estado) => {
+      return estado.nome.toUpperCase().includes(text.toUpperCase())
+      
+    }) 
+    setData(newData);
   }
-} */
+
+  return (
+    <TextInput
+      placeholder="Buscar"
+      onChangeText={searchFilterFunction}
+    />
+  );
+};
+
+export default SearchItem;
