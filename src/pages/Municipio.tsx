@@ -1,6 +1,13 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import { Estado } from './Home';
 import { api } from '../services/api';
 import { ItemMunicipio } from '../components/itemMunicipio';
@@ -29,12 +36,15 @@ export function Municipio() {
   }
 
   async function showMunicipioData() {
-    alert('Estado ' + estado.sigla)
+    Alert.alert(
+      'Informação:',
+      'Este município está dentro do estado de: ' + estado.sigla
+    );
   }
 
   useEffect(() => {
     if (!searchText) {
-      setList(municipios)
+      setList(municipios);
       loadMunicipios();
       navigation.setOptions({ title: estado.nome.toUpperCase() });
     } else {
@@ -62,7 +72,9 @@ export function Municipio() {
         showsVerticalScrollIndicator={false}
         data={list}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <ItemMunicipio item={item} onPress={() => showMunicipioData()} />}
+        renderItem={({ item }) => (
+          <ItemMunicipio item={item} onPress={() => showMunicipioData()} />
+        )}
       ></FlatList>
     </View>
   );
